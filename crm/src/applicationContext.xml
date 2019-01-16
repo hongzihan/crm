@@ -23,35 +23,38 @@
 			<property name="user" value="${jdbc.username}"/>
 			<property name="password" value="${jdbc.password}"/>
 		</bean>
-	
-		<!-- Spring整合Hibernate -->
-		<!-- 引入Hibernate的配置的信息 -->
+		
+		<!-- Spring整合Hibernate,配置sessionFactory -->
 		<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 			<!-- 注入连接池 -->
-			<property name="dataSource" ref="dataSource"></property>
-			<!-- 配置Hibernate的相关属性 -->
+			<property name="dataSource" ref="dataSource"/>
 			<property name="hibernateProperties">
 				<props>
-					<prop key="hibernate.dialect">com.hzh.ssh.sys.MySQL5DialectUTF8</prop>
+					<prop key="hibernate.dialect">com.hzh.crm.sys.MySQL5DialectUTF8</prop>
 					<prop key="hibernate.show_sql">true</prop>
 					<prop key="hibernate.format_sql">true</prop>
 					<prop key="hibernate.hbm2ddl.auto">update</prop>
 				</props>
 			</property>
-			<!-- 设置映射文件 -->
 			<property name="mappingResources">
 				<list>
-					<value>com/hzh/ssh/domain/customer.hbm.xml</value>
+					<value>com/hzh/crm/domain/user.hbm.xml</value>					
 				</list>
 			</property>
 		</bean>
-		
+	
 		<!-- 配置Dao -->
-		<bean id="userDao" class="com.hzh.crm.dao.impl.UserDaoImpl"></bean>
+		<bean id="userDao" class="com.hzh.crm.dao.impl.UserDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>			
+		</bean>
 		<!-- 配置Service -->
-		<bean id="userService" class="com.hzh.crm.service.impl.UserServiceImpl"> </bean>
+		<bean id="userService" class="com.hzh.crm.service.impl.UserServiceImpl">
+			<property name="userDao" ref="userDao"/>
+		</bean>
 		<!-- 配置Action -->
-		<bean id="userAction" class="com.hzh.crm.web.action.UserAction" scope="prototype"></bean>
+		<bean id="userAction" class="com.hzh.crm.web.action.UserAction" scope="prototype">
+			<property name="userService" ref="userService"/>
+		</bean>
 		
 		
 		

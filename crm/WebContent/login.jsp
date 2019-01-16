@@ -13,8 +13,13 @@ TD {
 	FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: 宋体
 }
 </STYLE>
-
-<META content="MSHTML 6.00.6000.16809" name=GENERATOR></HEAD>
+<script type="text/javascript">
+	function registUI() {
+		window.location="${pageContext.request.contextPath}/regist.jsp";
+	}
+</script>
+<META content="MSHTML 6.00.6000.16809" name=GENERATOR>
+</HEAD>
 <BODY>
 <FORM id=form1 name=form1 action="${pageContext.request.contextPath }/user_login.action" method=post target="_parent">
 
@@ -72,6 +77,7 @@ style="LEFT: 0px; POSITION: absolute; TOP: 0px; BACKGROUND-COLOR: #0066ff"></DIV
                   style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
                   onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("btn", "", true, "", "", false, false))' 
                   type=image src="images/login_button.gif" name=btn> 
+                  <input type="button" value="注册" onclick="registUI()">
               </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
   <TR>
     <TD><IMG src="images/login_3.jpg" 
