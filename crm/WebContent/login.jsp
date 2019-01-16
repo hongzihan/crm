@@ -46,10 +46,10 @@ style="LEFT: 0px; POSITION: absolute; TOP: 0px; BACKGROUND-COLOR: #0066ff"></DIV
         <TR>
           <TD width=360></TD>
           <TD>
+          	<s:actionerror/>
             <TABLE cellSpacing=0 cellPadding=2 border=0>
               <TBODY>
               <TR>
-              	<s:actionerror/>
                 <TD style="HEIGHT: 28px" width=80>登 录 名：</TD>
                 <TD style="HEIGHT: 28px" width=150><INPUT id=txtName 
                   style="WIDTH: 130px" name="user_code"></TD>
