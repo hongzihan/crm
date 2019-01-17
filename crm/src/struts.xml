@@ -5,6 +5,8 @@
 <struts>
 	<!-- 配置Struts2的常量 -->
 	<constant name="struts.action.extension" value="action"/>
+	<!-- 配置Struts2中所上传文件的总大小 -->
+	<constant name="struts.multipart.maxSize" value="5242880"/>
 
 	<package name="crm" extends="struts-default" namespace="/">
 		<!-- 用户 -->
@@ -18,6 +20,12 @@
 			<result name="saveUI">/jsp/customer/add.jsp</result>
 			<result name="findAll">/jsp/customer/list.jsp</result>
 			<result name="success" type="redirectAction">customer_findAll.action</result>
+			<result name="input">/jsp/customer/add.jsp</result>
+			
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.maximumSize">2097152</param>
+				<param name="fileUpload.allowedExtensions">.jpg,.png</param>
+			</interceptor-ref>
 		</action>
 		
 		<!-- 字典 -->

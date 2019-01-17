@@ -14,6 +14,8 @@
 		<property name="cust_level"/> -->
 		<property name="cust_phone"/>
 		<property name="cust_mobile"/>
+		<!-- 图片上传的路径 -->
+		<property name="cust_image"/>
 		
 		<!-- 配置客户与字典的多对一的映射 -->
 		<many-to-one name="baseDictSource" class="com.hzh.crm.domain.BaseDict" column="cust_source"/>

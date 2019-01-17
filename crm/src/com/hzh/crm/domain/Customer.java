@@ -13,6 +13,7 @@ public class Customer {
 //	private String cust_level;
 	private String cust_phone;
 	private String cust_mobile;
+	private String cust_image; // 客户资质的图片
 	
 	/**
 	 * 因为客户和字典表表示多对一，所以需要在多的一方放置一的一方的对象
@@ -64,6 +65,13 @@ public class Customer {
 	}
 	public void setCust_mobile(String cust_mobile) {
 		this.cust_mobile = cust_mobile;
+	}
+	
+	public String getCust_image() {
+		return cust_image;
+	}
+	public void setCust_image(String cust_image) {
+		this.cust_image = cust_image;
 	}
 	@Override
 	public String toString() {
