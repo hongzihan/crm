@@ -1,5 +1,9 @@
 package com.hzh.crm.dao;
 
+import java.util.List;
+
+import org.hibernate.criterion.DetachedCriteria;
+
 import com.hzh.crm.domain.Customer;
 
 /**
@@ -10,5 +14,9 @@ import com.hzh.crm.domain.Customer;
 public interface CustomerDao {
 
 	void save(Customer customer);
+	
+	Integer findCount(DetachedCriteria detachedCriteria);
+
+	List<Customer> findByPage(DetachedCriteria detachedCriteria, Integer begin, Integer pageSize);
 
 }
