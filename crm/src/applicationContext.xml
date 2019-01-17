@@ -39,10 +39,13 @@
 			<property name="mappingResources">
 				<list>
 					<value>com/hzh/crm/domain/user.hbm.xml</value>					
+					<value>com/hzh/crm/domain/customer.hbm.xml</value>					
+					<value>com/hzh/crm/domain/BaseDict.hbm.xml</value>					
 				</list>
 			</property>
 		</bean>
-	
+		
+		<!-- 用户模块 -->
 		<!-- 配置Dao -->
 		<bean id="userDao" class="com.hzh.crm.dao.impl.UserDaoImpl">
 			<property name="sessionFactory" ref="sessionFactory"/>			
@@ -56,7 +59,33 @@
 			<property name="userService" ref="userService"/>
 		</bean>
 		
+		<!-- 客户模块 -->
+		<!-- 配置Dao -->
+		<bean id="customerDao" class="com.hzh.crm.dao.impl.CustomerDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+		<!-- 配置Service -->
+		<bean id="customerService" class="com.hzh.crm.service.impl.CustomerServiceImpl">
+			<property name="customerDao" ref="customerDao"/>
+		</bean>
+		<!-- 配置Action -->
+		<bean id="customerAction" class="com.hzh.crm.web.action.CustomerAction" scope="prototype">
+			<property name="customerService" ref="customerService"/>
+		</bean>
 		
+		<!-- 配置字典相关的类 -->
+		<!-- 配置Dao -->
+		<bean id="baseDictDao" class="com.hzh.crm.dao.impl.BaseDictDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+		<!-- 配置Service -->
+		<bean id="baseDictService" class="com.hzh.crm.service.impl.BaseDictServiceImpl">
+			<property name="baseDictDao" ref="baseDictDao"/>
+		</bean>
+		<!-- 配置Action -->
+		<bean id="baseDictAction" class="com.hzh.crm.web.action.BaseDictAction" scope="prototype">
+			<property name="baseDictService" ref="baseDictService"/>
+		</bean>
 		
 		<!-- 配置事务管理器 -->
 		<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
