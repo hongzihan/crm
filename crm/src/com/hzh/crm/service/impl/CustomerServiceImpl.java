@@ -50,6 +50,19 @@ public class CustomerServiceImpl implements CustomerService {
 		pageBean.setList(list);
 		return pageBean;
 	}
+
+	@Override
+	// 根据id查询客户的方法
+	public Customer findById(Long cust_id) {
+		
+		return customerDao.findById(cust_id);
+	}
+
+	@Override
+	// 删除客户的方法
+	public void delete(Customer customer) {
+		customerDao.delete(customer);
+	}
 	
 	
 }

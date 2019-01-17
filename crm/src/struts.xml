@@ -21,6 +21,7 @@
 			<result name="findAll">/jsp/customer/list.jsp</result>
 			<result name="success" type="redirectAction">customer_findAll.action</result>
 			<result name="input">/jsp/customer/add.jsp</result>
+			<result name="deleteSuccess" type="redirectAction">customer_findAll.action</result>
 			
 			<interceptor-ref name="defaultStack">
 				<param name="fileUpload.maximumSize">2097152</param>

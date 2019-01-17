@@ -128,5 +128,23 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		ActionContext.getContext().getValueStack().push(pageBean);
 		return "findAll";
 	}
+	
+	/**
+	 * 客户删除的方法: delete
+	 */
+	public String delete() {
+		// 调用业务层删除
+		customer = customerService.findById(customer.getCust_id());
+		// 删除图片
+		if(customer.getCust_image() != null) {
+			File file = new File(customer.getCust_image());
+			if(file.exists()) {
+				file.delete();
+			}
+		}
+		// 删除客户
+		customerService.delete(customer);
+		return "deleteSuccess";
+	}
 
 }
