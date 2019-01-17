@@ -64,7 +64,7 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	 */
 	public String saveCustomer() {
 		customerService.save(customer);
-		return NONE;
+		return SUCCESS;
 	}
 	
 	/**
