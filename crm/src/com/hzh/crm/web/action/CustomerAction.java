@@ -146,5 +146,59 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		customerService.delete(customer);
 		return "deleteSuccess";
 	}
+	
+	/**
+	 * 编辑客户的方法: edit
+	 * @return
+	 */
+	public String edit() {
+		// 根据id查询，跳转页面，回显数据
+		customer = customerService.findById(customer.getCust_id());
+		// 将customer传到页面:
+		// 有两种方法，一种手动压栈，二种，模型驱动的对象，默认就在栈内(一个Action对应一个值栈)
+		// 如果使用第一种方式:回显数据: <s:property value="cust_name"/> <s:textfield name="cust_name"/>
+		// 如果使用第二种方式:回显数据: <s:property value="model.cust_name"/> 如果是textfield则需要使用%强制解析OGNL表达式value="%{model.cust_name}"
+		
+		ActionContext.getContext().getValueStack().push(customer);
+		
+		// 跳转页面
+		return "editSuccess";
+	}
+	
+	/**
+	 * 修改客户的方法: update
+	 * @throws IOException 
+	 */
+	public String update() throws IOException {
+		// 文件项是否已经选择: 如果选择了，删除原有文件，上传新文件，如果没有选，使用原有的即可
+		if(upload != null) {
+			// 已经选择了
+			// 删除原有文件
+			String cust_image = customer.getCust_image();
+			if(cust_image!=null || !"".equals(cust_image)) {
+				File file  = new File(cust_image);
+				if(file.exists()) {
+					file.delete();
+				}
+			}
+			// 上传新文件
+			String path = "/Users/ken/Desktop/Main/Program/java/FileUpload";
+			String uuidFileName = UploadUtils.getUuidFileName(uploadFileName);
+			String realpath = UploadUtils.getPath(uuidFileName);
+			String url = path + realpath;
+			File file = new File(url);
+			if(!file.exists()) {
+				file.mkdirs();
+			}
+			// 文件上传
+			File destFile = new File(url+"/"+uuidFileName);
+			FileUtils.copyFile(upload, destFile);
+			
+			customer.setCust_image(url+"/"+uuidFileName);
+		}
+		System.out.println("**********************" + "\n" + customer);
+		customerService.update(customer);
+		return "updateSuccess";
+	}
 
 }

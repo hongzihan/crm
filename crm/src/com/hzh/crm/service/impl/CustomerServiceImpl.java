@@ -63,6 +63,12 @@ public class CustomerServiceImpl implements CustomerService {
 	public void delete(Customer customer) {
 		customerDao.delete(customer);
 	}
+
+	@Override
+	// 修改客户的方法
+	public void update(Customer customer) {
+		customerDao.update(customer);
+	}
 	
 	
 }

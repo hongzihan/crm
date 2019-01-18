@@ -101,7 +101,7 @@
 													<TD><s:property value="cust_phone"/></TD>
 													<TD><s:property value="cust_mobile"/></TD>
 													<TD>
-													<a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.cust_id}">修改</a>
+													<a href="${pageContext.request.contextPath }/customer_edit.action?cust_id=<s:property value="cust_id"/>">修改</a>
 													&nbsp;&nbsp;
 													<a href="${pageContext.request.contextPath }/customer_delete.action?cust_id=<s:property value="cust_id"/>">删除</a>
 													</TD>
