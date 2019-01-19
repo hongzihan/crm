@@ -25,4 +25,6 @@ public interface CustomerDao {
 
 	void update(Customer customer);
 
+	List<Customer> findAll();
+
 }

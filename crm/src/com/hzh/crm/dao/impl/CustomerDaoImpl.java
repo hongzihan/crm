@@ -2,6 +2,8 @@ package com.hzh.crm.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.criteria.From;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -58,6 +60,13 @@ public class CustomerDaoImpl extends HibernateDaoSupport implements CustomerDao 
 	// DAO中修改客户的方法
 	public void update(Customer customer) {
 		this.getHibernateTemplate().update(customer);
+	}
+
+	@Override
+	// DAO中查询所有客户的方法
+	public List<Customer> findAll() {
+		List<Customer> list = (List<Customer>) this.getHibernateTemplate().find("From Customer");
+		return list;
 	}
 
 }

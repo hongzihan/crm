@@ -69,6 +69,13 @@ public class CustomerServiceImpl implements CustomerService {
 	public void update(Customer customer) {
 		customerDao.update(customer);
 	}
+
+	@Override
+	// 查询所有客户的方法
+	public List<Customer> findAll() {
+		List<Customer> list = customerDao.findAll();
+		return list;
+	}
 	
 	
 }

@@ -35,5 +35,11 @@
 		<action name="baseDict_*" class="baseDictAction" method="{1}">
 		
 		</action>
+		
+		<!-- 联系人 -->
+		<action name="linkMan_*" class="linkManAction" method="{1}">
+			<result name="findAll">/jsp/linkman/list.jsp</result>
+			<result name="saveUI">/jsp/linkman/add.jsp</result>
+		</action>
 	</package>
 </struts>
