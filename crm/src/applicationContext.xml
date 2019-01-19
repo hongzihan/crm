@@ -41,6 +41,7 @@
 					<value>com/hzh/crm/domain/user.hbm.xml</value>					
 					<value>com/hzh/crm/domain/customer.hbm.xml</value>					
 					<value>com/hzh/crm/domain/BaseDict.hbm.xml</value>					
+					<value>com/hzh/crm/domain/LinkMan.hbm.xml</value>					
 				</list>
 			</property>
 		</bean>
@@ -85,6 +86,20 @@
 		<!-- 配置Action -->
 		<bean id="baseDictAction" class="com.hzh.crm.web.action.BaseDictAction" scope="prototype">
 			<property name="baseDictService" ref="baseDictService"/>
+		</bean>
+		
+		<!-- 配置联系人的相关的类 -->
+		<!-- 配置DAO -->
+		<bean id="linkManDao" class="com.hzh.crm.dao.impl.LinkManDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+		<!-- 配置Service -->
+		<bean id="linkManService" class="com.hzh.crm.service.impl.LinkManServiceImpl">
+			<property name="linkManDao" ref="linkManDao"/>
+		</bean>
+		<!-- 配置Action -->
+		<bean id="linkManAction" class="com.hzh.crm.web.action.LinkManAction" scope="prototype">
+			<property name="linkManService" ref="linkManService"/>
 		</bean>
 		
 		<!-- 配置事务管理器 -->

@@ -1,5 +1,8 @@
 package com.hzh.crm.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 顾客实体类
  * @author ken
@@ -14,6 +17,9 @@ public class Customer {
 	private String cust_phone;
 	private String cust_mobile;
 	private String cust_image; // 客户资质的图片
+	
+	// 与联系人的一对多
+	private Set<LinkMan> linkMans = new HashSet<LinkMan>();
 	
 	/**
 	 * 因为客户和字典表表示多对一，所以需要在多的一方放置一的一方的对象
@@ -72,6 +78,15 @@ public class Customer {
 	}
 	public void setCust_image(String cust_image) {
 		this.cust_image = cust_image;
+	}
+	
+	
+	
+	public Set<LinkMan> getLinkMans() {
+		return linkMans;
+	}
+	public void setLinkMans(Set<LinkMan> linkMans) {
+		this.linkMans = linkMans;
 	}
 	@Override
 	public String toString() {

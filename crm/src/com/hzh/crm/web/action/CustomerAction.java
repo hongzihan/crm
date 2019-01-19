@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.hzh.crm.domain.Customer;
 import com.hzh.crm.domain.PageBean;
@@ -84,7 +85,8 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 
 	/**
 	 * 添加客户到数据库的方法 saveCustomer
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public String saveCustomer() throws IOException {
 		// 上传图片
@@ -97,18 +99,18 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 			// 一个目录下存放的文件过多，目录分离
 			String realPath = UploadUtils.getPath(uuidFileName);
 			// 创建目录:
-			String url = path+realPath;
+			String url = path + realPath;
 			File file = new File(url);
-			if(!file.exists()) {
+			if (!file.exists()) {
 				file.mkdirs();
 			}
 			// 文件上传
 			File destFile = new File(url + "/" + uuidFileName);
 			FileUtils.copyFile(upload, destFile);
-			
+
 			// 设置image的属性的值:
 			customer.setCust_image(url + "/" + uuidFileName);
-			
+
 		}
 		// 保存客户
 		customerService.save(customer);
@@ -119,16 +121,39 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	 * 分页查询客户的方法 findAll
 	 */
 	public String findAll() {
+		// 接收筛选条件并push到值栈中,用于回显筛选信息
+		ActionContext.getContext().getValueStack().push(customer);
+		
 		// 接收参数: 分页参数
 
 		// 最好使用DetachedCriteria对象(条件查询-带分页)
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Customer.class);
+		// 设置条件:( 在web层设置条件)
+		if (customer.getCust_name() != null) {
+			// 输入名称:
+			detachedCriteria.add(Restrictions.like("cust_name", "%" + customer.getCust_name() + "%"));
+		}
+		if (customer.getBaseDictSource() != null) {
+			if(customer.getBaseDictSource().getDict_id() != null && !"".equals(customer.getBaseDictSource().getDict_id())) {
+				detachedCriteria.add(Restrictions.eq("baseDictSource.dict_id", customer.getBaseDictSource().getDict_id()));
+			}
+		}
+		if (customer.getBaseDictLevel() != null) {
+			if(customer.getBaseDictLevel().getDict_id() != null && !"".equals(customer.getBaseDictLevel().getDict_id())) {
+				detachedCriteria.add(Restrictions.eq("baseDictLevel.dict_id", customer.getBaseDictLevel().getDict_id()));
+			}
+		}
+		if (customer.getBaseDictIndustry() != null) {
+			if(customer.getBaseDictIndustry().getDict_id() != null && !"".equals(customer.getBaseDictIndustry().getDict_id())) {
+				detachedCriteria.add(Restrictions.eq("baseDictIndustry.dict_id", customer.getBaseDictIndustry().getDict_id()));
+			}
+		}
 		// 调用业务层查询
 		PageBean<Customer> pageBean = customerService.findByPage(detachedCriteria, currPage, pageSize);
 		ActionContext.getContext().getValueStack().push(pageBean);
 		return "findAll";
 	}
-	
+
 	/**
 	 * 客户删除的方法: delete
 	 */
@@ -136,9 +161,9 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		// 调用业务层删除
 		customer = customerService.findById(customer.getCust_id());
 		// 删除图片
-		if(customer.getCust_image() != null) {
+		if (customer.getCust_image() != null) {
 			File file = new File(customer.getCust_image());
-			if(file.exists()) {
+			if (file.exists()) {
 				file.delete();
 			}
 		}
@@ -146,9 +171,10 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		customerService.delete(customer);
 		return "deleteSuccess";
 	}
-	
+
 	/**
 	 * 编辑客户的方法: edit
+	 * 
 	 * @return
 	 */
 	public String edit() {
@@ -156,28 +182,31 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		customer = customerService.findById(customer.getCust_id());
 		// 将customer传到页面:
 		// 有两种方法，一种手动压栈，二种，模型驱动的对象，默认就在栈内(一个Action对应一个值栈)
-		// 如果使用第一种方式:回显数据: <s:property value="cust_name"/> <s:textfield name="cust_name"/>
-		// 如果使用第二种方式:回显数据: <s:property value="model.cust_name"/> 如果是textfield则需要使用%强制解析OGNL表达式value="%{model.cust_name}"
-		
+		// 如果使用第一种方式:回显数据: <s:property value="cust_name"/> <s:textfield
+		// name="cust_name"/>
+		// 如果使用第二种方式:回显数据: <s:property value="model.cust_name"/>
+		// 如果是textfield则需要使用%强制解析OGNL表达式value="%{model.cust_name}"
+
 		ActionContext.getContext().getValueStack().push(customer);
-		
+
 		// 跳转页面
 		return "editSuccess";
 	}
-	
+
 	/**
 	 * 修改客户的方法: update
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public String update() throws IOException {
 		// 文件项是否已经选择: 如果选择了，删除原有文件，上传新文件，如果没有选，使用原有的即可
-		if(upload != null) {
+		if (upload != null) {
 			// 已经选择了
 			// 删除原有文件
 			String cust_image = customer.getCust_image();
-			if(cust_image!=null || !"".equals(cust_image)) {
-				File file  = new File(cust_image);
-				if(file.exists()) {
+			if (cust_image != null || !"".equals(cust_image)) {
+				File file = new File(cust_image);
+				if (file.exists()) {
 					file.delete();
 				}
 			}
@@ -187,14 +216,14 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 			String realpath = UploadUtils.getPath(uuidFileName);
 			String url = path + realpath;
 			File file = new File(url);
-			if(!file.exists()) {
+			if (!file.exists()) {
 				file.mkdirs();
 			}
 			// 文件上传
-			File destFile = new File(url+"/"+uuidFileName);
+			File destFile = new File(url + "/" + uuidFileName);
 			FileUtils.copyFile(upload, destFile);
-			
-			customer.setCust_image(url+"/"+uuidFileName);
+
+			customer.setCust_image(url + "/" + uuidFileName);
 		}
 		System.out.println("**********************" + "\n" + customer);
 		customerService.update(customer);
