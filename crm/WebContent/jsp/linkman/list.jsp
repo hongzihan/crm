@@ -95,7 +95,14 @@
 												<TR
 													style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
 													<TD><s:property value="lkm_name"/></TD>
-													<TD><s:property value="lkm_gender"/></TD>
+													<TD>
+														<s:if test='lkm_gender == "1"'>
+															男
+														</s:if>
+														<s:elseif test='lkm_gender == "2"'>
+															女
+														</s:elseif>
+													</TD>
 													<TD><s:property value="lkm_phone"/></TD>
 													<TD><s:property value="lkm_mobile"/></TD>
 													<TD><s:property value="lkm_email"/></TD>
