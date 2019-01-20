@@ -45,6 +45,18 @@ public class LinkManServiceImpl implements LinkManService {
 	public void save(LinkMan linkMan) {
 		linkManDao.save(linkMan);
 	}
+
+	@Override
+	// 业务层根据id查询联系人的方法
+	public LinkMan findById(Long lkm_id) {
+		return linkManDao.findById(lkm_id);
+	}
+
+	@Override
+	// 业务层更新联系人的方法
+	public void update(LinkMan linkMan) {
+		linkManDao.update(linkMan);
+	}
 	
 	
 }

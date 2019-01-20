@@ -19,4 +19,8 @@ public interface LinkManDao {
 
 	void save(LinkMan linkMan);
 
+	LinkMan findById(Long lkm_id);
+
+	void update(LinkMan linkMan);
+
 }

@@ -90,4 +90,27 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
 		return "saveSuccess";
 	}
 	
+	/**
+	 * 跳转到编辑页面的方法 edit
+	 */
+	public String edit() {
+		// 查询某个联系人，查询所有客户。
+		// 查询所有客户
+		List<Customer> list = customerService.findAll();
+		// 查询联系人
+		linkMan = linkManService.findById(linkMan.getLkm_id());
+		// 将list和联系人的对象带回到页面
+		ActionContext.getContext().getValueStack().set("list", list);
+		ActionContext.getContext().getValueStack().push(linkMan);
+		return "editSuccess";
+	}
+	
+	/**
+	 * 修改联系人信息的方法 update
+	 */
+	public String update() {
+		// 调用业务层的方法
+		linkManService.update(linkMan);
+		return "updateSuccess";
+	}
 }
