@@ -43,6 +43,7 @@
 			<result name="saveSuccess" type="redirectAction">linkMan_findAll.action</result>
 			<result name="editSuccess">/jsp/linkman/edit.jsp</result>
 			<result name="updateSuccess" type="redirectAction">linkMan_findAll.action</result>
+			<result name="deleteSuccess" type="redirectAction">linkMan_findAll.action</result>
 		</action>
 	</package>
 </struts>

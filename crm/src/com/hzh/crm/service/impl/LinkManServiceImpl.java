@@ -57,6 +57,12 @@ public class LinkManServiceImpl implements LinkManService {
 	public void update(LinkMan linkMan) {
 		linkManDao.update(linkMan);
 	}
+
+	@Override
+	// 业务层删除联系人的方法
+	public void delete(LinkMan linkMan) {
+		linkManDao.delete(linkMan);
+	}
 	
 	
 }

@@ -20,4 +20,6 @@ public interface LinkManService {
 
 	void update(LinkMan linkMan);
 
+	void delete(LinkMan linkMan);
+
 }

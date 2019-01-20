@@ -51,5 +51,11 @@ public class LinkManDaoImpl extends HibernateDaoSupport implements LinkManDao {
 	public void update(LinkMan linkMan) {
 		this.getHibernateTemplate().update(linkMan);
 	}
+
+	@Override
+	// DAO中删除联系人的方法
+	public void delete(LinkMan linkMan) {
+		this.getHibernateTemplate().delete(linkMan);
+	}
 	
 }

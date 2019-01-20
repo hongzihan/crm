@@ -113,4 +113,15 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
 		linkManService.update(linkMan);
 		return "updateSuccess";
 	}
+	
+	/**
+	 * 删除联系人的方法 delete
+	 */
+	public String delete() {
+		// 先查询
+		linkMan = linkManService.findById(linkMan.getLkm_id());
+		// 删除联系人
+		linkManService.delete(linkMan);
+		return "deleteSuccess";
+	}
 }

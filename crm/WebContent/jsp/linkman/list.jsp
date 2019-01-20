@@ -114,7 +114,7 @@
 													<TD>
 													<a href="${pageContext.request.contextPath }/linkMan_edit.action?lkm_id=<s:property value="lkm_id"/>">修改</a>
 													&nbsp;&nbsp;
-													<a href="${pageContext.request.contextPath }/">删除</a>
+													<a href="${pageContext.request.contextPath }/linkMan_delete.action?lkm_id=<s:property value="lkm_id"/>">删除</a>
 													</TD>
 												</TR>
 												

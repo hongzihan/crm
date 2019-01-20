@@ -23,4 +23,6 @@ public interface LinkManDao {
 
 	void update(LinkMan linkMan);
 
+	void delete(LinkMan linkMan);
+
 }
