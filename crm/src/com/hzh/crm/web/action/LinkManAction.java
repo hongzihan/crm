@@ -1,8 +1,13 @@
 package com.hzh.crm.web.action;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 import com.hzh.crm.domain.Customer;
@@ -14,9 +19,14 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.PropertyFilter;
+
 public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan> {
 
 	private LinkMan linkMan = new LinkMan();
+	
 	
 	@Override
 	public LinkMan getModel() {
@@ -63,6 +73,35 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
 		// 创建离线条件查询
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(LinkMan.class);
 		// 设置条件
+		if(linkMan.getLkm_name() != null && !"".equals(linkMan.getLkm_name())) {
+			detachedCriteria.add(Restrictions.like("lkm_name", "%" + linkMan.getLkm_name() + "%"));
+		}
+		if(linkMan.getLkm_gender() != null && !"".equals(linkMan.getLkm_gender())) {
+			detachedCriteria.add(Restrictions.eq("lkm_gender", linkMan.getLkm_gender()));
+		}
+		if(linkMan.getCustomer() != null) {
+			if(linkMan.getCustomer().getCust_id()!=null && !"".equals(linkMan.getCustomer().getCust_id())) {
+				detachedCriteria.add(Restrictions.eq("customer.cust_id", linkMan.getCustomer().getCust_id()));
+				// 调用Service将指定的customer查出来后存入值栈
+				Customer customer = customerService.findById(linkMan.getCustomer().getCust_id());
+				ActionContext.getContext().getValueStack().push(customer);
+			}
+		}
+		if(linkMan.getLkm_position() != null && !"".equals(linkMan.getLkm_position())) {
+			detachedCriteria.add(Restrictions.eq("lkm_position", linkMan.getLkm_position()));
+		}
+		if(linkMan.getLkm_mobile() != null && !"".equals(linkMan.getLkm_mobile())) {
+			detachedCriteria.add(Restrictions.eq("lkm_mobile", linkMan.getLkm_mobile()));
+		}
+		if(linkMan.getLkm_phone() != null && !"".equals(linkMan.getLkm_phone())) {
+			detachedCriteria.add(Restrictions.eq("lkm_phone", linkMan.getLkm_phone()));
+		}
+		if(linkMan.getLkm_qq() != null && !"".equals(linkMan.getLkm_qq())) {
+			detachedCriteria.add(Restrictions.eq("lkm_qq", linkMan.getLkm_qq()));
+		}
+		if(linkMan.getLkm_email() != null && !"".equals(linkMan.getLkm_email())) {
+			detachedCriteria.add(Restrictions.eqOrIsNull("lkm_email", linkMan.getLkm_email()));
+		}
 		// 调用业务层
 		PageBean<LinkMan> pageBean = linkManService.findAll(detachedCriteria, currPage, pageSize);
 		ActionContext.getContext().getValueStack().push(pageBean);
@@ -123,5 +162,47 @@ public class LinkManAction extends ActionSupport implements ModelDriven<LinkMan>
 		// 删除联系人
 		linkManService.delete(linkMan);
 		return "deleteSuccess";
+	}
+	
+	/**
+	 * 异步查询所有客户回显页面的方法：asyncFindAll
+	 * @throws IOException 
+	 */
+	public String asyncFindAll() throws IOException {
+		// 调用业务层进行查询所有的客户
+		List<Customer> list = customerService.findAll();
+		for (Customer customer : list) {
+			System.out.println(customer);
+		}
+		// 将list转换为json
+		/**
+		 * JSONConfig: 转JSON的配置对象
+		 * JSONArray: 将数组和list集合转成JSON
+		 * JSONObject: 将对象和Map集合转成JSON
+		 */
+		// 通过jsonConfig来去除多余的数据
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setExcludes(new String[]{"cust_phone","cust_mobile","cust_image"});
+		// 配置对象过滤掉linkMans,baseDictSource,baseDictLevel,baseDictIndustry字段
+		// 由于这四个字段会造成JSON死循环，所以在这里过滤掉(因为他们之间存在一对多或多对一的关系，导致多次查询)
+		jsonConfig.setJsonPropertyFilter(new PropertyFilter() {
+			@Override
+			public boolean apply(Object source, String name, Object value) {
+			   if(name.equals("linkMans") 
+					   || name.equals("baseDictSource") 
+					   || name.equals("baseDictLevel") 
+					   || name.equals("baseDictIndustry")) {
+				   return true;
+			   } else {
+				   return false;
+			   }
+			}                                                                                                                                                                                                                                                                                                                                                                                                              
+		});
+		JSONArray jsonArray = JSONArray.fromObject(list, jsonConfig);
+		System.out.println(jsonArray.toString());
+		// 将JSON打印到页面上
+		ServletActionContext.getResponse().setContentType("text/html;charset=UTF-8");
+		ServletActionContext.getResponse().getWriter().println(jsonArray.toString());
+		return NONE;
 	}
 }

@@ -9,7 +9,7 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
 <SCRIPT language=javascript>
 	function to_page(page){
 		if(page){
@@ -18,6 +18,15 @@
 		document.customerForm.submit();
 		
 	}
+	
+	$(function() {
+		$.post("${pageContext.request.contextPath}/linkMan_asyncFindAll.action",{},function(data) {
+			$(data).each(function(i,n) {
+				$("#lkm_cust_name").append("<option value='"+n.cust_id+"'>" + n.cust_name + "</option>");
+			});
+			$("#lkm_cust_name option[value='${cust_id}']").prop("selected","selected");
+		},"json");
+	});
 </SCRIPT>
 
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
@@ -62,11 +71,50 @@
 											<TBODY>
 												<TR>
 													<TD>联系人名称：</TD>
-													<TD><INPUT class=textbox id=sChannel2
-														style="WIDTH: 80px" maxLength=50 name="lkmName"></TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_name" value="${lkm_name}">
+													</TD>
+													<TD>办公电话：</TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_phone" value="${lkm_phone }">
+													</TD>
+													<TD>手机：</TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_mobile" value="${lkm_mobile }">
+													</TD>
+													<TD>邮箱：</TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_email" value="${lkm_email }">
+													</TD>
+													<TD>QQ：</TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_qq"  value="${lkm_qq }">
+													</TD>
+													<TD>职位：</TD>
+													<TD>
+														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_position"  value="${lkm_position }">
+													</TD>
+												</TR>
+												<TR>
+													<TD>性别：</TD>
+													<TD>
+														<select name="lkm_gender">
+															<option value="">--请选择--</option>
+															<option value="1" <s:if test="lkm_gender==1">selected</s:if>>男</option>
+															<option value="2" <s:if test="lkm_gender==2">selected</s:if>>女</option> 
+														</select>
+													</TD>
+													<TD>所属客户：</TD>
+													<TD>
+														<select name="customer.cust_id" id="lkm_cust_name">
+															<option value="">--请选择--</option>
+														</select>
+													</TD>
 													
-													<TD><INPUT class=button id=sButton2 type=submit
-														value=" 筛选 " name=sButton2></TD>
+													<TD>
+														<INPUT class=button id=sButton2 type=submit
+															value=" 筛选 " name=sButton2>
+													</TD>
 												</TR>
 											</TBODY>
 										</TABLE>
