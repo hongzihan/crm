@@ -22,7 +22,8 @@
 		<many-to-one name="baseDictIndustry" class="com.hzh.crm.domain.BaseDict" column="cust_industry"/>
 		<many-to-one name="baseDictLevel" class="com.hzh.crm.domain.BaseDict" column="cust_level"/>
 		<!-- 配置客户和联系人的一对多的映射 -->
-		<set name="linkMans" cascade="delete">
+		<!-- cascade表示级联，inverse表示外键维护权，值为true时表示放弃外检维护权 -->
+		<set name="linkMans" cascade="delete" inverse="true">
 			<key column="lkm_cust_id"></key>
 			<one-to-many class="com.hzh.crm.domain.LinkMan"/>
 		</set>
