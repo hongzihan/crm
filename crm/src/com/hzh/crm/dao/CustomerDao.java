@@ -11,19 +11,13 @@ import com.hzh.crm.domain.Customer;
  * @author ken
  *
  */
-public interface CustomerDao {
+public interface CustomerDao extends BaseDao<Customer>{
 
-	void save(Customer customer);
-	
 	Integer findCount(DetachedCriteria detachedCriteria);
 
 	List<Customer> findByPage(DetachedCriteria detachedCriteria, Integer begin, Integer pageSize);
 
 	Customer findById(Long cust_id);
-
-	void delete(Customer customer);
-
-	void update(Customer customer);
 
 	List<Customer> findAll();
 

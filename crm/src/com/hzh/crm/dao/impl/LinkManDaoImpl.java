@@ -9,12 +9,14 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import com.hzh.crm.dao.LinkManDao;
 import com.hzh.crm.domain.LinkMan;
 
+import sun.awt.image.ImageWatched.Link;
+
 /**
  * 联系人DAO的实现类
  * @author ken
  *
  */
-public class LinkManDaoImpl extends HibernateDaoSupport implements LinkManDao {
+public class LinkManDaoImpl extends BaseDaoImpl<LinkMan> implements LinkManDao {
 
 	@Override
 	public Integer findCount(DetachedCriteria detachedCriteria) {

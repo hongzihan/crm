@@ -11,18 +11,11 @@ import com.hzh.crm.domain.LinkMan;
  * @author ken
  *
  */
-public interface LinkManDao {
+public interface LinkManDao extends BaseDao<LinkMan>{
 
 	Integer findCount(DetachedCriteria detachedCriteria);
 
 	List<LinkMan> findByPage(DetachedCriteria detachedCriteria, Integer begin, Integer pageSize);
 
-	void save(LinkMan linkMan);
-
 	LinkMan findById(Long lkm_id);
-
-	void update(LinkMan linkMan);
-
-	void delete(LinkMan linkMan);
-
 }

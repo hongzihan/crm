@@ -16,7 +16,7 @@ import com.hzh.crm.domain.Customer;
  * @author ken
  *
  */
-public class CustomerDaoImpl extends HibernateDaoSupport implements CustomerDao {
+public class CustomerDaoImpl extends BaseDaoImpl<Customer> implements CustomerDao {
 
 	@Override
 	// DAO层保存客户的方法
