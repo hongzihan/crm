@@ -7,9 +7,7 @@ import com.hzh.crm.domain.User;
  * @author ken
  *
  */
-public interface UserDao {
-
-	void save(User user);
+public interface UserDao extends BaseDao<User>{
 
 	User login(User user);
 

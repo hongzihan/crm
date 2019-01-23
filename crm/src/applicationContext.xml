@@ -49,7 +49,7 @@
 		<!-- 用户模块 -->
 		<!-- 配置Dao -->
 		<bean id="userDao" class="com.hzh.crm.dao.impl.UserDaoImpl">
-			<property name="sessionFactory" ref="sessionFactory"/>			
+			<property name="sessionFactory" ref="sessionFactory"/>
 		</bean>
 		<!-- 配置Service -->
 		<bean id="userService" class="com.hzh.crm.service.impl.UserServiceImpl">

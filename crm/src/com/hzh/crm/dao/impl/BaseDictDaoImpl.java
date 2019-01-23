@@ -12,7 +12,11 @@ import com.hzh.crm.domain.BaseDict;
  * @author ken
  *
  */
-public class BaseDictDaoImpl extends HibernateDaoSupport implements BaseDictDao {
+public class BaseDictDaoImpl extends BaseDaoImpl<BaseDict> implements BaseDictDao {
+
+//	public BaseDictDaoImpl(Class clazz) {
+//		super(BaseDict.class);
+//	}
 
 	@Override
 	// 根据类型编码查询字典数据

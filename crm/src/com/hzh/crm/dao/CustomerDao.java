@@ -13,12 +13,4 @@ import com.hzh.crm.domain.Customer;
  */
 public interface CustomerDao extends BaseDao<Customer>{
 
-	Integer findCount(DetachedCriteria detachedCriteria);
-
-	List<Customer> findByPage(DetachedCriteria detachedCriteria, Integer begin, Integer pageSize);
-
-	Customer findById(Long cust_id);
-
-	List<Customer> findAll();
-
 }

@@ -12,13 +12,11 @@ import com.hzh.crm.domain.User;
  * @author ken
  *
  */
-public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
-	@Override
-	// DAO中用于保存用户的
-	public void save(User user) {
-		this.getHibernateTemplate().save(user);
-	}
+//	public UserDaoImpl(Class clazz) {
+//		super(User.class);
+//	}
 
 	@Override
 	// DAO中根据用户账号和密码进行查询

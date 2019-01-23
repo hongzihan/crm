@@ -17,47 +17,15 @@ import sun.awt.image.ImageWatched.Link;
  *
  */
 public class LinkManDaoImpl extends BaseDaoImpl<LinkMan> implements LinkManDao {
-
-	@Override
-	public Integer findCount(DetachedCriteria detachedCriteria) {
-		detachedCriteria.setProjection(Projections.rowCount());
-		List<Long> list = (List<Long>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
-		if(list.size() > 0) {
-			return list.get(0).intValue();
-		}
-		return null;
-	}
-
-	@Override
-	public List<LinkMan> findByPage(DetachedCriteria detachedCriteria, Integer begin, Integer pageSize) {
-		detachedCriteria.setProjection(null);
-		List<LinkMan> list = (List<LinkMan>) this.getHibernateTemplate().findByCriteria(detachedCriteria,begin,pageSize);
-		return list;
-	}
-
-	@Override
-	// DAO中保存联系人的方法
-	public void save(LinkMan linkMan) {
-		this.getHibernateTemplate().save(linkMan);
-	}
-
-	@Override
-	// DAO中根据id查找联系人的方法
-	public LinkMan findById(Long lkm_id) {
-		LinkMan linkMan = (LinkMan) this.getHibernateTemplate().get(LinkMan.class, lkm_id);
-		return linkMan;
-	}
-
-	@Override
-	// DAO中更新联系人的方法
-	public void update(LinkMan linkMan) {
-		this.getHibernateTemplate().update(linkMan);
-	}
-
-	@Override
-	// DAO中删除联系人的方法
-	public void delete(LinkMan linkMan) {
-		this.getHibernateTemplate().delete(linkMan);
-	}
 	
+	
+	/**
+	 * 由于父类BaseDaoImpl不存在无参构造，所以当前类的无参构造也无效(子类必须实现父类的构造),所以
+	 * 在这里我们新建构造器，来调用父类的有参构造，以此来将获取需要的class
+	 * @param clazz
+	 */
+//	public LinkManDaoImpl(Class clazz) {
+//		super(LinkMan.class);
+//	}
+
 }
