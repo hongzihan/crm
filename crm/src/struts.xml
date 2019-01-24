@@ -45,5 +45,10 @@
 			<result name="updateSuccess" type="redirectAction">linkMan_findAll.action</result>
 			<result name="deleteSuccess" type="redirectAction">linkMan_findAll.action</result>
 		</action>
+		
+		<!-- 客户拜访记录 -->
+		<action name="saleVisit_*" class="saleVisitAction" method="{1}">
+			<result name="findAll">/jsp/salevisit/list.jsp</result>
+		</action>
 	</package>
 </struts>

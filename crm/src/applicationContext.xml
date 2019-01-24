@@ -13,6 +13,9 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd"> <!-- bean definitions here -->
 	
+		<!-- 开启属性注入的注解 -->
+		<context:annotation-config />
+	
 		<!-- 引入外部属性文件 -->
 		<context:property-placeholder location="classpath:jdbc.properties"/>
 		
@@ -42,6 +45,7 @@
 					<value>com/hzh/crm/domain/customer.hbm.xml</value>					
 					<value>com/hzh/crm/domain/BaseDict.hbm.xml</value>					
 					<value>com/hzh/crm/domain/LinkMan.hbm.xml</value>					
+					<value>com/hzh/crm/domain/SaleVisit.hbm.xml</value>					
 				</list>
 			</property>
 		</bean>
@@ -101,6 +105,17 @@
 		<bean id="linkManAction" class="com.hzh.crm.web.action.LinkManAction" scope="prototype">
 			<property name="linkManService" ref="linkManService"/>
 			<property name="customerService" ref="customerService"/>
+		</bean>
+		
+		<!-- 配置客户拜访记录管理相关类 -->
+		<bean id="saleVisitDao" class="com.hzh.crm.dao.impl.SaleVisitDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+		
+		<bean id="saleVisitService" class="com.hzh.crm.service.impl.SaleVisitServiceImpl">
+		</bean>
+		
+		<bean id="saleVisitAction" class="com.hzh.crm.web.action.SaleVisitAction" scope="prototype">
 		</bean>
 		
 		<!-- 配置事务管理器 -->
