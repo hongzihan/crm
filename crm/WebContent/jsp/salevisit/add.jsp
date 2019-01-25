@@ -88,11 +88,11 @@
 								
 								<td>下次拜访时间 ：</td>
 								<td>
-									<s:textfield cssClass="textbox" id="visit_nexttime" cssStyle="WIDTH: 180px" maxLength="50" name="visit_nexttime"/>
+									<s:textfield cssClass="textbox" id="visit_nexttime" cssStyle="WIDTH: 180px" maxLength="50" name="visit_nexttime" readonly="true"/>
 								</td>
 								<td>拜访时间：</td>
 								<td>
-									<s:textfield name="visit_time" id="visit_time"/>
+									<s:textfield name="visit_time" id="visit_time" readonly="true"/>
 								</td>
 							</TR>
 							<TR>
