@@ -1,5 +1,8 @@
 package com.hzh.crm.web.action;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.struts2.ServletActionContext;
 
 import com.hzh.crm.domain.User;
@@ -7,6 +10,9 @@ import com.hzh.crm.service.UserService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 
 public class UserAction extends ActionSupport implements ModelDriven<User> {
 
@@ -50,5 +56,18 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 			ActionContext.getContext().getSession().put("existUser", existUser);
 			return SUCCESS;
 		}
+	}
+	
+	/**
+	 * 查询所有用户并转JSON的方法 findAllUser
+	 * @throws IOException 
+	 */
+	public String findAllUser() throws IOException {
+		List<User> list = userService.findAll();
+		JsonConfig jsonConfig = new JsonConfig();
+		JSONArray jsonArray = JSONArray.fromObject(list, jsonConfig);
+		ServletActionContext.getResponse().setContentType("text/html;charset=UTF-8");
+		ServletActionContext.getResponse().getWriter().println(jsonArray.toString());
+		return NONE;
 	}
 }

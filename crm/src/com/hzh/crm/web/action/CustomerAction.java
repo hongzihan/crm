@@ -2,8 +2,10 @@ package com.hzh.crm.web.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -14,6 +16,9 @@ import com.hzh.crm.utils.UploadUtils;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 
 /**
  * 客户Action类
@@ -228,6 +233,19 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		System.out.println("**********************" + "\n" + customer);
 		customerService.update(customer);
 		return "updateSuccess";
+	}
+	
+	public String findAllCustomer() throws IOException {
+		List<Customer> list = customerService.findAll();
+		// 将list转成json格式
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setExcludes(new String[]{"linkMans","baseDictSource","baseDictLevel","baseDictIndustry"});
+		// 转成JSON
+		JSONArray jsonArray = JSONArray.fromObject(list,jsonConfig);
+		ServletActionContext.getResponse().setContentType("text/html;charset=UTF-8");
+		ServletActionContext.getResponse().getWriter().println(jsonArray.toString());
+		
+		return NONE;
 	}
 
 }

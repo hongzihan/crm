@@ -60,4 +60,12 @@ public class SaleVisitAction extends ActionSupport implements ModelDriven<SaleVi
 		ActionContext.getContext().getValueStack().push(pageBean);
 		return "findAll";
 	}
+	
+	/**
+	 * 客户拜访记录页面跳转方法 : saveUI
+	 */
+	public String saveUI() {
+		
+		return "saveUI";
+	}
 }

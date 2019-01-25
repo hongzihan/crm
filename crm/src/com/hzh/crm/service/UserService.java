@@ -1,5 +1,7 @@
 package com.hzh.crm.service;
 
+import java.util.List;
+
 import com.hzh.crm.domain.User;
 
 /**
@@ -12,5 +14,7 @@ public interface UserService {
 	void regist(User user);
 
 	User login(User user);
+
+	List<User> findAll();
 
 }
