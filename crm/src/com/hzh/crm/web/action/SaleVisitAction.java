@@ -1,8 +1,11 @@
 package com.hzh.crm.web.action;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.hzh.crm.domain.PageBean;
 import com.hzh.crm.domain.SaleVisit;
@@ -45,6 +48,26 @@ public class SaleVisitAction extends ActionSupport implements ModelDriven<SaleVi
 		}
 		this.pageSize = pageSize;
 	}
+	
+	// 接收数据
+	private Date visit_begin_time;
+	private Date visit_end_time;
+
+	public void setVisit_begin_time(Date visit_begin_time) {
+		this.visit_begin_time = visit_begin_time;
+	}
+
+	public void setVisit_end_time(Date visit_end_time) {
+		this.visit_end_time = visit_end_time;
+	}
+
+	public Date getVisit_begin_time() {
+		return visit_begin_time;
+	}
+
+	public Date getVisit_end_time() {
+		return visit_end_time;
+	}
 
 
 	/**
@@ -54,6 +77,12 @@ public class SaleVisitAction extends ActionSupport implements ModelDriven<SaleVi
 		// 创建离线条件查询对象
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(SaleVisit.class);
 		// 设置条件
+		if(visit_begin_time != null) {
+			detachedCriteria.add(Restrictions.ge("visit_time", visit_begin_time));
+		}
+		if(visit_end_time != null) {
+			detachedCriteria.add(Restrictions.le("visit_time", visit_end_time));
+		}
 		// 调用业务层
 		PageBean<SaleVisit> pageBean = saleVisitService.findByPage(detachedCriteria,currPage,pageSize);
 		// 存入值栈

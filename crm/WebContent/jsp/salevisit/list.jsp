@@ -19,7 +19,17 @@
 		
 	}
 </SCRIPT>
-
+<!-- 日期插件，使用jquery -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery-1.4.2.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/jquery/jquery.datepick.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery.datepick.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery.datepick-zh-CN.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#visit_begin_time').datepick({dateFormat: 'yy-mm-dd'});
+		$('#visit_end_time').datepick({dateFormat: 'yy-mm-dd'});
+	});
+</script>
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
 </HEAD>
 <BODY>
@@ -61,47 +71,14 @@
 										<TABLE cellSpacing=0 cellPadding=2 border=0>
 											<TBODY>
 												<TR>
-													<TD>联系人名称：</TD>
+													<TD>拜访时间：从</TD>
 													<TD>
-														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_name" value="${lkm_name}">
+														<input id="visit_begin_time" name="visit_begin_time" readonly="readonly" value="<s:date name="visit_begin_time" format="yyyy-MM-dd"/>">
 													</TD>
-													<TD>办公电话：</TD>
+													<TD>到</TD>
 													<TD>
-														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_phone" value="${lkm_phone }">
+														<input id="visit_end_time" name="visit_end_time" readonly="readonly" value="<s:date name="visit_end_time" format="yyyy-MM-dd"/>">
 													</TD>
-													<TD>手机：</TD>
-													<TD>
-														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_mobile" value="${lkm_mobile }">
-													</TD>
-													<TD>邮箱：</TD>
-													<TD>
-														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_email" value="${lkm_email }">
-													</TD>
-													<TD>QQ：</TD>
-													<TD>
-														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_qq"  value="${lkm_qq }">
-													</TD>
-													<TD>职位：</TD>
-													<TD>
-														<INPUT class=textbox id=sChannel2 style="WIDTH: 80px" maxLength=50 name="lkm_position"  value="${lkm_position }">
-													</TD>
-												</TR>
-												<TR>
-													<TD>性别：</TD>
-													<TD>
-														<select name="lkm_gender">
-															<option value="">--请选择--</option>
-															<option value="1" <s:if test="lkm_gender==1">selected</s:if>>男</option>
-															<option value="2" <s:if test="lkm_gender==2">selected</s:if>>女</option> 
-														</select>
-													</TD>
-													<TD>所属客户：</TD>
-													<TD>
-														<select name="customer.cust_id" id="lkm_cust_name">
-															<option value="">--请选择--</option>
-														</select>
-													</TD>
-													
 													<TD>
 														<INPUT class=button id=sButton2 type=submit
 															value=" 筛选 " name=sButton2>
