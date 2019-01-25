@@ -9,10 +9,24 @@
 	<constant name="struts.multipart.maxSize" value="5242880"/>
 
 	<package name="crm" extends="struts-default" namespace="/">
+		<interceptors>
+			<interceptor name="privilegeInterceptor" class="com.hzh.crm.web.interceptor.PrivilegeInterceptor"/>
+		</interceptors>
+		
+		<global-results>
+			<result name="login">/login.jsp</result>
+		</global-results>
+	
+	
 		<!-- 用户 -->
 		<action name="user_*" class="userAction" method="{1}">
 			<result name="login">/login.jsp</result>
 			<result name="success" type="redirect">/index.jsp</result>
+			
+			<interceptor-ref name="privilegeInterceptor">
+				<param name="excludeMethods">regist,login</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"/>
 		</action>
 		
 		<!-- 客户 -->
@@ -25,6 +39,7 @@
 			<result name="deleteSuccess" type="redirectAction">customer_findAll.action</result>
 			<result name="updateSuccess" type="redirectAction">customer_findAll.action</result>
 			
+			<interceptor-ref name="privilegeInterceptor"/>
 			<interceptor-ref name="defaultStack">
 				<param name="fileUpload.maximumSize">2097152</param>
 				<param name="fileUpload.allowedExtensions">.jpg,.png</param>
@@ -33,7 +48,8 @@
 		
 		<!-- 字典 -->
 		<action name="baseDict_*" class="baseDictAction" method="{1}">
-		
+			<interceptor-ref name="privilegeInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
 		</action>
 		
 		<!-- 联系人 -->
@@ -44,6 +60,9 @@
 			<result name="editSuccess">/jsp/linkman/edit.jsp</result>
 			<result name="updateSuccess" type="redirectAction">linkMan_findAll.action</result>
 			<result name="deleteSuccess" type="redirectAction">linkMan_findAll.action</result>
+			
+			<interceptor-ref name="privilegeInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
 		</action>
 		
 		<!-- 客户拜访记录 -->
@@ -51,6 +70,9 @@
 			<result name="findAll">/jsp/salevisit/list.jsp</result>
 			<result name="saveUI">/jsp/salevisit/add.jsp</result>
 			<result name="saveSuccess" type="redirectAction">saleVisit_findAll.action</result>
+			
+			<interceptor-ref name="privilegeInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
 		</action>
 	</package>
 </struts>
