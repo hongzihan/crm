@@ -68,4 +68,12 @@ public class SaleVisitAction extends ActionSupport implements ModelDriven<SaleVi
 		
 		return "saveUI";
 	}
+	
+	/**
+	 * 客户拜访记录的保存方法: save
+	 */
+	public String save() {
+		saleVisitService.save(saleVisit);
+		return "saveSuccess";
+	}
 }

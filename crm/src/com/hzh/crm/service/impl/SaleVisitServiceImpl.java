@@ -36,12 +36,17 @@ public class SaleVisitServiceImpl implements SaleVisitService{
 		pageBean.setTotalCount(totalCount);
 		// 设置总页数
 		double tc = totalCount;
-		Double num = Math.ceil(tc);
+		Double num = Math.ceil(tc/pageSize);
 		pageBean.setTotalPage(num.intValue());
 		// 设置每页显示数据的集合
 		Integer begin = (currPage - 1) * pageSize;
 		List<SaleVisit> list = saleVisitDao.findByPage(detachedCriteria, begin, pageSize);
 		pageBean.setList(list);
 		return pageBean;
+	}
+
+	@Override
+	public void save(SaleVisit saleVisit) {
+		saleVisitDao.save(saleVisit);
 	}
 }

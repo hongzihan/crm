@@ -26,8 +26,17 @@
 		},"json");
 	});
 </script>
-
-
+<!-- 日期插件，使用jquery -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery-1.4.2.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/jquery/jquery.datepick.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery.datepick.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery.datepick-zh-CN.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#visit_time').datepick({dateFormat: 'yy-mm-dd'});
+		$('#visit_nexttime').datepick({dateFormat: 'yy-mm-dd'});
+	});
+</script>
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
 </HEAD>
 <BODY>
@@ -79,11 +88,11 @@
 								
 								<td>下次拜访时间 ：</td>
 								<td>
-									<s:textfield cssClass="textbox" id="sChannel2" cssStyle="WIDTH: 180px" maxLength="50" name="visit_nexttime"/>
+									<s:textfield cssClass="textbox" id="visit_nexttime" cssStyle="WIDTH: 180px" maxLength="50" name="visit_nexttime"/>
 								</td>
 								<td>拜访时间：</td>
 								<td>
-									<s:textfield name="visit_time"/>
+									<s:textfield name="visit_time" id="visit_time"/>
 								</td>
 							</TR>
 							<TR>
